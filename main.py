@@ -33,7 +33,7 @@ def load_date():
 
 TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
-
+global act_date
 bot = telebot.TeleBot(TOKEN)
 
 def check_condition():
@@ -76,6 +76,7 @@ def send_message_if_condition():
         try:
             if check_condition():
                 for _ in range(10):
+                    str = "АТАС, ПИЗДА, КВ ВЫЛОЖИЛИ "+str(act_date)
                     bot.send_message(CHAT_ID, "АТАС, ПИЗДА, КВ ВЫЛОЖИЛИ")
             else:
                 print(f"{datetime.now()}: Условие не выполнено, пропускаем.")
