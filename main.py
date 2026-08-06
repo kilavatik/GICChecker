@@ -81,7 +81,7 @@ def send_message_if_condition():
                 print(f"{datetime.now()}: Условие не выполнено, пропускаем.")
         except Exception as e:
             print(f"Ошибка в цикле: {e}")
-        time.sleep(3600)  # ждём час
+        time.sleep(10)  # ждём час
 
 # Запускаем поток для проверки
 thread = threading.Thread(target=send_message_if_condition, daemon=True)
