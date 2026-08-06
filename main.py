@@ -77,7 +77,7 @@ def send_message_if_condition():
             if check_condition():
                 for _ in range(10):
                     str = "АТАС, ПИЗДА, КВ ВЫЛОЖИЛИ "+str(act_date)
-                    bot.send_message(CHAT_ID, "АТАС, ПИЗДА, КВ ВЫЛОЖИЛИ")
+                    bot.send_message(CHAT_ID, str)
             else:
                 print(f"{datetime.now()}: Условие не выполнено, пропускаем.")
         except Exception as e:
