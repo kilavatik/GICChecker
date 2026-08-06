@@ -94,4 +94,27 @@ def start(message):
 # Удаляем вебхук (если был) и запускаем polling
 bot.remove_webhook()
 print("Бот запущен...")
+
+import os
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Бот работает!"
+
+def run_web_server():
+    """Запускает минимальный веб-сервер, чтобы Render видел открытый порт."""
+    port = int(os.environ.get("PORT", 8080))
+    # Важно: слушаем на 0.0.0.0, чтобы принимать запросы извне[reference:4]
+    app.run(host='0.0.0.0', port=port, debug=False)
+
+# Запускаем веб-сервер в отдельном потоке, чтобы не блокировать бота
+import threading
+web_thread = threading.Thread(target=run_web_server, daemon=True)
+web_thread.start()
+
+# ... ваш код с bot.polling() ...
+
 bot.polling(none_stop=True)
