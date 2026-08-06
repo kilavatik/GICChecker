@@ -33,10 +33,11 @@ def load_date():
 
 TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
-global act_date
+act_date = date(2006, 12, 4)
 bot = telebot.TeleBot(TOKEN)
 
 def check_condition():
+    global act_date
     act_date = load_date()
     if act_date is None:
         act_date = date(2006, 12, 4)
@@ -63,7 +64,9 @@ def check_condition():
                 # Правильный парсинг даты (день, месяц, год)
                 day, month, year = map(int, d.split("."))
                 new_date = date(year, month, day)
+                print(act_date)
                 if act_date < new_date:
+                    print("suka")
                     save_date(new_date)
                     return True
         except Exception as e:
@@ -72,11 +75,12 @@ def check_condition():
     return False
 
 def send_message_if_condition():
+    global act_date
     while True:
         try:
             if check_condition():
                 for _ in range(10):
-                    str = "АТАС, ПИЗДА, КВ ВЫЛОЖИЛИ "+str(act_date)
+                    str = "АТАС, ПИЗДА, КВ ВЫЛОЖИЛИ "
                     bot.send_message(CHAT_ID, str)
             else:
                 print(f"{datetime.now()}: Условие не выполнено, пропускаем.")
